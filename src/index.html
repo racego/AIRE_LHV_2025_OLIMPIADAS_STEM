@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Actividad: Contraste y validación del modelo (ICA - PM₂.₅)</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>Validación y Contraste del Modelo Explicativo</h1>
+      <p class="muted">Use el panel izquierdo para simular y el derecho para anotar evidencias, limitaciones y respuestas docentes.</p>
+    </header>
+
+    <main class="grid">
+      <section class="panel sim">
+        <h2>Simulador rápido — Modelo reducido</h2>
+        <div class="note">Ecuación: <strong>ICA ≈ 23.52 + 2.236 · PM<sub>2.5</sub></strong></div>
+
+        <div class="control">
+          <label>PM<sub>2.5</sub> (µg/m³): <span id="pm25Val">20</span></label>
+          <input id="pm25" type="range" min="0" max="80" step="1" value="20">
+        </div>
+
+        <div class="control">
+          <label>PM<sub>10</sub> (µg/m³): <span id="pm10Val">40</span></label>
+          <input id="pm10" type="range" min="0" max="200" step="1" value="40">
+        </div>
+
+        <div class="control">
+          <label>Temperatura (°C): <span id="tempVal">22</span></label>
+          <input id="temp" type="range" min="0" max="40" step="0.5" value="22">
+        </div>
+
+        <div class="results">
+          <div><strong>ICA (modelo reducido):</strong> <span id="ica">68.23</span></div>
+          <div><strong>ICA (regresión completa estimada):</strong> <span id="icaFull">--</span></div>
+        </div>
+
+        <div class="actions">
+          <button id="calcBtn">Calcular</button>
+          <button id="consistencyBtn">Prueba de consistencia (simular 5 escenarios)</button>
+        </div>
+
+        <div class="log" id="simLog" aria-live="polite"></div>
+      </section>
+
+      <section class="panel evidence">
+        <h2>Contraste con teorías y evidencia</h2>
+        <p>Enlace a los datos procesados (RMCAB) y hojas con correlaciones: <a href="https://docs.google.com/spreadsheets/d/1bwNgenGFUkm5B1qQnrgP0JStFdIVuPat/edit?usp=sharing" target="_blank" rel="noopener">Google Sheet (datos limpios & correlaciones)</a>.</p>
+
+        <div class="refs">
+          <h3>Fuentes clave</h3>
+          <ul>
+            <li><a href="https://www.who.int/publications/i/item/9789240034228" target="_blank">WHO, Air quality guidelines (2021)</a></li>
+            <li><a href="https://www.minambiente.gov.co/wp-content/uploads/2021/10/Resolucion-2254-de-2017.pdf" target="_blank">Resolución 2254 (Colombia, 2017)</a></li>
+            <li><a href="https://www.ambientebogota.gov.co/red-de-monitoreo-de-calidad-del-aire-de-bogota-rmcab" target="_blank">RMCAB - Red de Monitoreo (Bogotá)</a></li>
+            <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC5445216/" target="_blank">Revisión: PM2.5 y riesgo respiratorio (Liu et al.)</a></li>
+            <li><a href="https://www.epa.gov/pm-pollution/health-and-environmental-effects-particulate-matter-pm" target="_blank">EPA - efectos de PM</a></li>
+          </ul>
+        </div>
+
+        <h3>Preguntas para el aula</h3>
+        <ol>
+          <li>Si alguien más usara este modelo, ¿qué le costaría entender o aplicar? (datos, supuestos, unidades)</li>
+          <li>¿Qué ocurre si la estación de referencia tiene sesgo por fuente local (p. ej. industria)?</li>
+          <li>¿Cómo afectaría incluir variables adicionales (NO₂, O₃) al ajuste del modelo?</li>
+        </ol>
+
+        <h3>Observaciones</h3>
+        <p id="theoryNotes">El modelo conceptual incluye efectos en salud como elemento explicativo; sin embargo, el modelo matemático solo determina el contaminante dominante (PM<sub>2.5</sub>) en el ICA — ver panel “Ecuación completa” y referencias.</p>
+      </section>
+
+      <section class="panel worksheet">
+        <h2>Ficha de trabajo (respuestas y limitaciones)</h2>
+
+        <label>Respuesta (b) — Contraste con teorías:</label>
+        <textarea id="ansB" placeholder="Escriba aquí la comparación con teorías/estudios (WHO, EPA, artículos)..."></textarea>
+
+        <label>Respuesta (c) — ¿Qué le costaría a un tercero aplicar el modelo?</label>
+        <textarea id="ansC" placeholder="Datos requeridos, supuestos, pasos..."></textarea>
+
+        <label>Respuesta (d) — Simulaciones (¿se comporta lógicamente?)</label>
+        <textarea id="ansD" placeholder="Insertar observaciones sobre la consistencia de la simulación..."></textarea>
+
+        <label>Respuesta (e) — ¿Siempre lógicas las salidas?</label>
+        <textarea id="ansE" placeholder="Explicar casos donde el modelo contradice conocimiento previo..."></textarea>
+
+        <label>Limitaciones (f)</label>
+        <textarea id="ansF" placeholder="Identifique escenarios donde el modelo no funciona o faltan variables..."></textarea>
+
+        <div class="saveRow">
+          <button id="saveBtn">Guardar respuestas (local)</button>
+          <button id="exportBtn">Exportar ficha (JSON)</button>
+        </div>
+
+        <div class="status" id="status"></div>
+      </section>
+    </main>
+
+    <footer>
+      <small>Plantilla pedagógica — adapte textos y referencias a su informe. Fuentes citadas en panel de evidencia.</small>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
